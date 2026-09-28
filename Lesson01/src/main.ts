@@ -12,5 +12,3 @@ let b: number = 3
 let c: number = 10
 
 console.log(a/b);
-
-
