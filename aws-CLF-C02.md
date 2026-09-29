@@ -377,6 +377,310 @@ For example, SNS can be used to send notifications when an AWS Budget alert is t
 
 ---
 
+
+# AWS Free Tier
+
+The **AWS Free Tier** allows eligible customers to use certain AWS services and resources without paying, subject to the applicable Free Tier limits and conditions.
+
+> **Important:** Free Tier does not mean that every AWS service or every amount of usage is free. Always check the current Free Tier limits and monitor your usage.
+
+---
+
+## AWS Free Tier Alerts
+
+You can enable notifications to receive alerts about your AWS Free Tier usage.
+
+Navigate to:
+
+    AWS Management Console
+        ↓
+    User/Account Menu
+        ↓
+    Billing and Cost Management
+        ↓
+    Billing Preferences
+
+Enable:
+
+    Receive AWS Free Tier alerts
+
+This helps you monitor your Free Tier usage and avoid unexpected charges when usage exceeds the applicable Free Tier limits.
+
+---
+
+# Billing Alerts
+
+AWS also provides billing alerts through **Amazon CloudWatch**.
+
+Navigate to:
+
+    AWS Management Console
+        ↓
+    User/Account Menu
+        ↓
+    Billing and Cost Management
+        ↓
+    Billing Preferences
+
+Enable:
+
+    Receive CloudWatch billing alerts
+
+> **Course Note:** CloudWatch billing alarms are an older approach to billing monitoring. AWS Budgets is the newer recommended approach for many cost-management use cases, but CloudWatch billing alarms can still provide useful flexibility.
+
+---
+
+# CloudWatch Billing Alarm
+
+**Amazon CloudWatch** is a monitoring and observability service that provides capabilities such as:
+
+- Metrics
+- Alarms
+- Logs
+- Monitoring
+
+A CloudWatch alarm can monitor a metric and trigger an action when a specified condition is met.
+
+---
+
+## Create a Billing Alarm
+
+### Step 1 — Open CloudWatch
+
+Search for:
+
+    CloudWatch
+
+Then navigate to:
+
+    CloudWatch
+        ↓
+    Alarms
+        ↓
+    Create alarm
+
+---
+
+### Step 2 — Select the Metric
+
+For the data source, select:
+
+    Data source: Metrics
+    Type: Classic
+
+Then:
+
+    Select metric
+        ↓
+    Search for: billing
+        ↓
+    Total Estimated Charge
+
+---
+
+### Step 3 — Configure the Threshold
+
+Configure the alarm threshold.
+
+Example:
+
+    Threshold type: Static
+
+Then configure the required threshold values.
+
+The alarm will monitor the selected billing metric and compare it against the configured threshold.
+
+---
+
+### Step 4 — Configure the Alarm State Trigger
+
+Configure the alarm state that should trigger the notification.
+
+Select:
+
+    In alarm
+
+This means:
+
+> The metric or expression is outside of the defined threshold.
+
+---
+
+## Step 5 — Configure an SNS Notification
+
+For the notification action, select:
+
+    Send a notification to the following SNS topic
+
+You can create a new SNS topic.
+
+Enter the email address that should receive the notification and create the topic.
+
+Example:
+
+    Create new topic
+        ↓
+    Enter email address
+        ↓
+    Create topic
+
+---
+
+## Amazon SNS
+
+**Amazon SNS (Simple Notification Service)** can send notifications when an event occurs.
+
+In this case:
+
+    CloudWatch Alarm
+        ↓
+    SNS Topic
+        ↓
+    Email Notification
+
+The SNS topic can be viewed through the Amazon SNS service.
+
+Navigate to:
+
+    Amazon SNS
+        ↓
+    Topics
+
+The topic will show its associated subscriptions.
+
+> **Important:** The email recipient may need to confirm the SNS subscription before receiving notifications.
+
+---
+
+## Step 6 — Add Alarm Details
+
+Add the required alarm details.
+
+Then:
+
+    Preview and create
+
+The CloudWatch billing alarm is now configured.
+
+---
+
+# Check SNS Topics and Subscriptions
+
+To review the SNS topics and subscriptions:
+
+    AWS Management Console
+        ↓
+    Search for SNS
+        ↓
+    Amazon SNS
+        ↓
+    Topics
+
+From the Topics section, you can view:
+
+- SNS topics
+- Subscriptions
+- Subscription status
+- Subscribers associated with the topic
+
+---
+
+# AWS Budgets vs CloudWatch Billing Alarms
+
+Both AWS Budgets and CloudWatch billing alarms can be used to monitor AWS costs, but they serve different purposes.
+
+| Feature | AWS Budgets | CloudWatch Billing Alarm |
+|---|---|---|
+| Cost monitoring | Yes | Yes |
+| Budget configuration | Yes | No |
+| Cost threshold alerts | Yes | Yes |
+| Uses CloudWatch | Not necessarily | Yes |
+| Uses SNS | Can integrate with notifications | Yes |
+| Flexible monitoring | Yes | Yes |
+| Recommended for modern cost management | Yes | Useful for specific monitoring needs |
+
+> **Exam Note:** Know that **AWS Budgets** is a cost-management service, while **CloudWatch** is primarily a monitoring and observability service.
+
+---
+
+# CLF-C02 Exam Notes
+
+## AWS Free Tier
+
+- The **AWS Free Tier** allows eligible customers to use certain AWS services within specified limits without paying.
+- Free Tier usage is subject to service-specific limits and conditions.
+- **AWS Free Tier alerts** can help monitor Free Tier usage.
+- Always monitor usage to avoid unexpected charges.
+
+## Billing Alerts
+
+- **CloudWatch billing alerts** can monitor billing-related metrics.
+- Billing alerts can be configured using **CloudWatch Alarms**.
+- A CloudWatch alarm can trigger an **SNS notification**.
+- Email notifications can be delivered through an **SNS topic**.
+- CloudWatch billing alarms are an older billing-monitoring approach but can still be useful.
+- **AWS Budgets** provides more comprehensive cost and budget management capabilities.
+
+## CloudWatch
+
+- **Amazon CloudWatch** is a monitoring and observability service.
+- CloudWatch works with:
+  - Metrics
+  - Alarms
+  - Logs
+  - Monitoring
+- A **CloudWatch Alarm** monitors a metric or expression and can trigger an action when a configured condition is met.
+
+## Amazon SNS
+
+- **SNS** = Simple Notification Service.
+- SNS is used to send notifications and integrate with AWS services.
+- An **SNS Topic** is a communication channel for sending messages to subscribers.
+- SNS can send notifications triggered by CloudWatch alarms.
+- Email subscriptions may require confirmation.
+
+---
+
+# Quick Revision
+
+    AWS FREE TIER
+        ↓
+    Use eligible AWS services within Free Tier limits
+        ↓
+    Monitor usage
+        ↓
+    Enable Free Tier alerts
+
+
+    AWS BUDGETS
+        ↓
+    Monitor and manage AWS costs
+        ↓
+    Configure budget thresholds
+        ↓
+    Create alerts/actions
+
+
+    CLOUDWATCH BILLING ALARM
+        ↓
+    CloudWatch
+        ↓
+    Alarms
+        ↓
+    Billing
+        ↓
+    Total Estimated Charge
+        ↓
+    Configure threshold
+        ↓
+    Alarm: In alarm
+        ↓
+    SNS Topic
+        ↓
+    Email Notification
+
+---
+
 # Key Terms
 
 | Term | Meaning |
@@ -390,7 +694,16 @@ For example, SNS can be used to send notifications when an AWS Budget alert is t
 | AWS Region | Geographic area containing AWS infrastructure |
 | Global Service | AWS service that is not tied to a specific Region |
 | Regional Service | AWS service whose resources are associated with a Region |
-| AWS Budgets | Tool for monitoring and managing AWS spending |
+| AWS Free Tier | Allows eligible customers to use certain AWS services within specified limits without paying |
+| AWS Free Tier Alert | Notification that helps monitor Free Tier usage |
+| AWS Budgets | AWS service used to monitor and manage costs and budgets |
+| CloudWatch | AWS monitoring and observability service |
+| CloudWatch Metric | Time-ordered data point or measurement monitored by CloudWatch |
+| CloudWatch Alarm | Monitors a metric or expression and triggers an action when a condition is met |
+| Billing Alarm | CloudWatch alarm used to monitor billing-related metrics |
+| Total Estimated Charge | Billing metric that can be monitored by CloudWatch |
 | Amazon SNS | Simple Notification Service used for notifications and integrations |
+| SNS Topic | Communication channel used to send messages to subscribers |
+| SNS Subscription | Defines a subscriber that receives messages from an SNS topic |
 | Account Alias | Human-readable alias for an AWS account sign-in URL |
 | Least Privilege | Giving users only the permissions they need |
